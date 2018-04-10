@@ -1,13 +1,24 @@
 let n
 initialize()
-setInterval(()=>{
-    makeLeave(getImage(n))//第一图转为Leave状态
-    .one('transitionend',(elm)=>{makeEnter(elm.currentTarget)})//进入Enter状态，待进入
-    makeCurrent(getImage(n+1))//下一图变为Current状态
-    n += 1
-},3000)
+// let timer = setInterval(()=>{
+//     makeLeave(getImage(n))//第一图转为Leave状态
+//     .one('transitionend',(elm)=>{makeEnter(elm.currentTarget)})//进入Enter状态，待进入
+//     makeCurrent(getImage(n+1))//下一图变为Current状态
+//     n += 1
+// },1000)
 
-
+document.addEventListener('visibilitychange',function(e){
+    if(document.hidden){
+        window.clearInterval(timer)
+    }else{
+        setInterval(()=>{
+            makeLeave(getImage(n))
+            .one('transitionend',(elm)=>{makeEnter(elm.currentTarget)})
+            makeCurrent(getImage(n+1))
+            n += 1
+        },1000)
+    }
+})
 
 
 
